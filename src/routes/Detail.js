@@ -22,8 +22,8 @@ const GET_MOVIE = gql`
 `;
 
 const GET_SUGGESTION = gql`
-  query getSuggestion($id: Int!) {
-    suggestion(id: $id) {
+  query getSuggestions($id: Int!) {
+    suggestions(id: $id) {
       id
       title
       medium_cover_image
@@ -151,9 +151,9 @@ export default () => {
             <Description>{data.movie.description_intro}</Description>
           </SubTitle>
           <Suggestion>
-            {suggestion?.suggestion?.map((el, i) => (
-              <SLink to={`/${el.id}`}>
-                <SuggestPoster key={i} src={el.medium_cover_image} alt="" />
+            {suggestion?.suggestions?.map((el, i) => (
+              <SLink to={`/${el.id}`} key={i}>
+                <SuggestPoster src={el.medium_cover_image} alt="" />
               </SLink>
             ))}
           </Suggestion>

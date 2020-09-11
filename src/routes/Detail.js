@@ -8,7 +8,9 @@ import Loader from "../components/Loader";
 const GET_MOVIE = gql`
   query getMovie($id: Int!) {
     movie(id: $id) {
+      id
       title
+      isLiked @client
       description_intro
       year
       language
@@ -141,7 +143,10 @@ export default () => {
       <Bg></Bg>
       <ContentsContainer>
         <Contents>
-          <Title>{data.movie.title}</Title>
+          <Title>
+            {data.movie.title}
+            {data.movie.isLiked ? "😘" : "😐"}
+          </Title>
           <SubTitle>
             {data.movie.runtime} min · {data.movie.year} · {data.movie.rating} ·{" "}
             {data.movie.genres.map((genre, i) => (

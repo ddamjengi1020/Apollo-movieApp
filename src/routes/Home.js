@@ -11,6 +11,7 @@ const GET_MOVIES = gql`
       id
       title
       medium_cover_image
+      isLiked @client
     }
   }
 `;
@@ -39,8 +40,8 @@ const Grid = styled.div`
   margin-top: -40px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 30px;
-  width: 80%;
+  grid-gap: 35px;
+  width: 70%;
   height: 100%;
 `;
 
@@ -48,6 +49,19 @@ const Form = styled.form`
   position: absolute;
   top: 40px;
   left: 40px;
+`;
+
+const Label = styled.label`
+  font-size: 17px;
+  font-weight: 500;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  margin-right: 10px;
+  &::after {
+    margin-left: 5px;
+    content: ":";
+  }
 `;
 
 const Input = styled.input`
@@ -65,8 +79,8 @@ const Input = styled.input`
 `;
 
 export default () => {
-  const [currentVal, setVal] = useState(1);
-  const [currentRating, setRating] = useState(1);
+  const [currentVal, setVal] = useState(5);
+  const [currentRating, setRating] = useState(5);
   let rating = parseFloat(currentRating);
   const { loading, data } = useQuery(GET_MOVIES, {
     variables: { rating },
@@ -82,7 +96,7 @@ export default () => {
     <Container>
       <Header>Apollo movie app</Header>
       <Form onSubmit={onSubmit}>
-        <label htmlFor="rating">rating</label>
+        <Label htmlFor="rating">Rating</Label>
         <Input
           id="rating"
           type="number"

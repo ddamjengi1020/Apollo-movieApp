@@ -134,7 +134,6 @@ export default () => {
   const { data: suggestion } = useQuery(GET_SUGGESTION, {
     variables: { id },
   });
-  console.log(suggestion);
   return loading ? (
     <Loader />
   ) : (
